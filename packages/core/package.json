@@ -1,0 +1,29 @@
+{
+  "name": "@how-xm/core",
+  "version": "0.0.0",
+  "description": "xm-cli core",
+  "author": "fang.yang <yangfang2028@126.com>",
+  "homepage": "https://github.com/silence717/xm-cli#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/silence717/xm-cli.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from core\""
+  },
+  "bugs": {
+    "url": "https://github.com/silence717/xm-cli/issues"
+  },
+  "dependencies": {
+    "@how-xm/utils": "^0.0.1"
+  }
+}

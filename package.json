@@ -1,11 +1,11 @@
 {
-  "name": "xm-test",
+  "name": "xm-cli",
   "version": "0.0.0",
   "main": "index.js",
-  "bin": {
-    "xm": "bin/index.js"
-  },
   "repository": "https://github.com/silence717/xm-cli.git",
   "author": "fang.yang <yangfang2028@126.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
 }

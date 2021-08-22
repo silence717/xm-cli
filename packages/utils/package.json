@@ -1,0 +1,26 @@
+{
+  "name": "@how-xm/utils",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "fang.yang <yangfang2028@126.com>",
+  "homepage": "https://github.com/silence717/xm-cli#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/silence717/xm-cli.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from utils\""
+  },
+  "bugs": {
+    "url": "https://github.com/silence717/xm-cli/issues"
+  }
+}
