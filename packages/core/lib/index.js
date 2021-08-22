@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-module.exports = index;
+const utils = require('@how-xm/utils');
 
-function index() {
-    // TODO
-}
+utils()
+
+console.log('hello howxm-cli')

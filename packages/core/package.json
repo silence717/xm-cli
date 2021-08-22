@@ -27,6 +27,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@how-xm/utils": "^0.0.1"
+    "@how-xm/utils": "file:../utils"
   }
 }
