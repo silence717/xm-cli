@@ -20,6 +20,9 @@
   "scripts": {
     "test": "echo \"Error: run tests from utils\""
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "bugs": {
     "url": "https://github.com/silence717/xm-cli/issues"
   }
