@@ -1,29 +1,69 @@
 #! /usr/bin/env node
-const lib = require('xm-cli-libs')
-// 注册一个命令  xm-cli init
-const argv = require('process').argv;
-const command = argv[2];
-const options = argv.slice(3)
+const yarns = require('yargs/yargs');
 
-if (options.length > 1) {
-    let [option, param] = options
-    option = option.replace('--', '')
+const { hideBin } = require('yargs/helpers')
+const dedent = require('dedent')
 
-    if (command) {
-        if (lib[command]) {
-            lib[command]({ option, param })
-        } else {
-            console.log('invalid command')
+const pkg = require('../package.json')
+const cli = yarns();
+const argv = process.argv.slice(2)
+
+
+
+const context = {
+    xmVersion: pkg.version,
+};
+
+cli
+    .usage('Usage: $0 [command] <options>')
+    .demandCommand(1, 'A command is required. Pass --help to see all available commands and options.')
+    .strict()
+    .recommendCommands()
+    .fail((error, msg) => {
+        console.log(error)
+        console.log(msg)
+    })
+    .alias("h", "help")
+    .alias("v", "version")
+    .wrap(cli.terminalWidth())
+    .epilogue(dedent`
+      When a command fails, all logs are written to lerna-debug.log in the current working directory.
+
+      For more information, find our manual at https://github.com/lerna/lerna
+    `)
+    .options({
+        debug: {
+            type: 'boolean',
+            description: 'Bootstrap debug mode',
+            alias: 'd'
         }
-    } else {
-        console.log('please input command')
-    }
-}
+    })
+    .option("registry", {
+        type: "string",
+        alias: 'r',
+        description: 'Define a code registry'
+    })
+    .group(['debug'], 'Dev Options:')
+    .group(['registry'], 'Extra Options:')
+    .command('init [name]', 'do init a project', (yarns) => {
+        yarns
+            .option('name', {
+                type: 'string',
+                description: 'Name of project',
+                alias: 'n'
+            })
+    }, (argv) => {
+        console.log(argv)
+    })
+    .command({
+        command: 'list',
+        aliases: ['ll', 'la', 'ls'],
+        description: 'List all packages',
+        builder: (yargs) => {
 
-// 实现参数解析  --version 和 init  --name
-if (command.startsWith('--') || command.startsWith('-')) {
-    const globalOption = command.replace(/--|-/g, '');
-    if (globalOption === 'version' || globalOption === 'V') {
-        console.log('1.0.0')
-    }
-}
+        },
+        handler: (argv) => {
+            console.log(argv)
+        }
+    })
+    .parse(argv, context);

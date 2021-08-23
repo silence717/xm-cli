@@ -10,5 +10,9 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "dedent": "^0.7.0",
+    "yargs": "^17.1.1"
   }
 }
