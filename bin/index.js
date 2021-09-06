@@ -8,8 +8,6 @@ const pkg = require('../package.json')
 const cli = yarns();
 const argv = process.argv.slice(2)
 
-
-
 const context = {
     xmVersion: pkg.version,
 };
