@@ -1,14 +1,11 @@
 {
-  "name": "@how-xm/core",
+  "name": "@how-xm/log",
   "version": "0.0.2",
-  "description": "xm-cli core",
+  "description": "> TODO: description",
   "author": "fang.yang <yangfang2028@126.com>",
   "homepage": "https://github.com/silence717/xm-cli#readme",
   "license": "ISC",
-  "main": "bin/index.js",
-  "bin": {
-    "xm-cli": "bin/index.js"
-  },
+  "main": "lib/index.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -21,15 +18,12 @@
     "url": "git+https://github.com/silence717/xm-cli.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from core\""
+    "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {
     "url": "https://github.com/silence717/xm-cli/issues"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "dependencies": {
-    "@how-xm/log": "file:../../utils/log"
+    "npmlog": "^5.0.1"
   }
 }
