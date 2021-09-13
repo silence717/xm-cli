@@ -13,12 +13,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "@how-xm/core": "^0.0.2",
-    "dedent": "^0.7.0",
-    "import-local": "^3.0.2",
-    "npmlog": "^5.0.1",
-    "yargs": "^17.1.1"
   }
 }

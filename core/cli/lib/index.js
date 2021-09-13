@@ -7,14 +7,20 @@ const log = require('@how-xm/log')
 const pkg = require('../package.json')
 const constant = require('./constant')
 
-
 function core() {
     try {
         checkPkgVersion()
         checkNodeVersion()
+        checkRoot()
     } catch (e) {
         log.error(e.message)
     }
+}
+
+function checkRoot() {
+    const rootCheck = require('root-check')
+    rootCheck()
+    console.log(process.geteuid())
 }
 
 function checkNodeVersion() {
