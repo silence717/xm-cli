@@ -30,6 +30,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@how-xm/log": "file:../../utils/log"
+    "@how-xm/log": "file:../../utils/log",
+    "colors": "^1.4.0",
+    "semver": "^7.3.5"
   }
 }
