@@ -2,8 +2,9 @@
 module.exports = core;
 const semver = require('semver')
 const colors = require('colors/safe')
+const userHome = require('user-home')
+const pathExists = require('path-exists').sync
 const log = require('@how-xm/log')
-
 const pkg = require('../package.json')
 const constant = require('./constant')
 
@@ -12,9 +13,17 @@ function core() {
         checkPkgVersion()
         checkNodeVersion()
         checkRoot()
+        checkUserHome()
     } catch (e) {
         log.error(e.message)
     }
+}
+
+function checkUserHome() {
+    if (!userHome || !pathExists(userHome)) {
+        throw new Error(colors.red('当前登录用户的主目录不存在！'))
+    }
+    console.log(userHome)
 }
 
 function checkRoot() {
