@@ -1,5 +1,6 @@
 'use strict'
 module.exports = core;
+const path = require('path')
 const semver = require('semver')
 const colors = require('colors/safe')
 const userHome = require('user-home')
@@ -9,6 +10,7 @@ const pkg = require('../package.json')
 const constant = require('./constant')
 
 let args
+
 function core() {
     try {
         checkPkgVersion()
@@ -16,11 +18,36 @@ function core() {
         checkRoot()
         checkUserHome()
         checkInputArgs()
-        log.verbose('debug', 'test debug log')
+        checkEnv()
     } catch (e) {
         log.error(e.message)
     }
 }
+
+function checkEnv() {
+    const dotenv = require('dotenv')
+    const dotEnvPath = path.resolve(userHome, '.env')
+    if (pathExists(dotEnvPath)) {
+        dotenv.config({
+            path: dotEnvPath,
+        })
+    }
+    createDefaultConfig()
+    log.verbose('current env variables', process.env.CLI_HOME_PATH)
+}
+
+function createDefaultConfig() {
+    const cliConfig = {
+        home: userHome
+    };
+    if (process.env.ClI_HOME) {
+        cliConfig['cliHome'] = path.join(userHome, process.env.ClI_HOME)
+    } else {
+        cliConfig['cliHome'] = path.join(userHome, constant.DEFAULT_CLI_HOME)
+    }
+    process.env.CLI_HOME_PATH = cliConfig.cliHome
+}
+
 
 function checkInputArgs() {
     const minimist = require('minimist')
