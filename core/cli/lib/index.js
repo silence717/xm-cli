@@ -11,7 +11,7 @@ const constant = require('./constant')
 
 let args
 
-function core() {
+async function core() {
     try {
         checkPkgVersion()
         checkNodeVersion()
@@ -19,9 +19,22 @@ function core() {
         checkUserHome()
         checkInputArgs()
         checkEnv()
+        await checkGlobalUpdate()
     } catch (e) {
         log.error(e.message)
     }
+}
+
+async function checkGlobalUpdate() {
+    // 1. 获取当前版本号和模块名
+    const currentVersion = pkg.version
+    const npmName = pkg.name
+    // 2. 调用npm API,获取所有版本号
+    const { getNpmInfo } = require('@how-xm/get-npm-info')
+    const data = await getNpmInfo(npmName)
+    console.log(data)
+    // 3. 提取所有版本号，比对哪些版本号是大于当前版本号
+    // 4. 获取最新的版本号，提示用户更新到该版本
 }
 
 function checkEnv() {
@@ -47,7 +60,6 @@ function createDefaultConfig() {
     }
     process.env.CLI_HOME_PATH = cliConfig.cliHome
 }
-
 
 function checkInputArgs() {
     const minimist = require('minimist')
