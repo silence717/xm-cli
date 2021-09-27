@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "main": "core/cli/bin/index.js",
   "bin": {
-    "xm-cli": "core/cli/bin/index.js"
+    "xm-cli": "bin/index.js"
   },
   "repository": "https://github.com/silence717/xm-cli.git",
   "author": "fang.yang <yangfang2028@126.com>",
@@ -13,5 +13,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "commander": "^8.2.0"
   }
 }

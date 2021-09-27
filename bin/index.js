@@ -1,67 +1,47 @@
 #! /usr/bin/env node
-const yarns = require('yargs/yargs');
 
-const { hideBin } = require('yargs/helpers')
-const dedent = require('dedent')
-
+const commander = require('commander')
 const pkg = require('../package.json')
-const cli = yarns();
-const argv = process.argv.slice(2)
 
-const context = {
-    xmVersion: pkg.version,
-};
+// 获取 commander d的单例
+// const { program } = commander
 
-cli
-    .usage('Usage: $0 [command] <options>')
-    .demandCommand(1, 'A command is required. Pass --help to see all available commands and options.')
-    .strict()
-    .recommendCommands()
-    .fail((error, msg) => {
-        console.log(error)
-        console.log(msg)
-    })
-    .alias("h", "help")
-    .alias("v", "version")
-    .wrap(cli.terminalWidth())
-    .epilogue(dedent`
-      When a command fails, all logs are written to lerna-debug.log in the current working directory.
+// 实例化一个Command示例
+const program = new commander.Command()
 
-      For more information, find our manual at https://github.com/lerna/lerna
-    `)
-    .options({
-        debug: {
-            type: 'boolean',
-            description: 'Bootstrap debug mode',
-            alias: 'd'
-        }
-    })
-    .option("registry", {
-        type: "string",
-        alias: 'r',
-        description: 'Define a code registry'
-    })
-    .group(['debug'], 'Dev Options:')
-    .group(['registry'], 'Extra Options:')
-    .command('init [name]', 'do init a project', (yarns) => {
-        yarns
-            .option('name', {
-                type: 'string',
-                description: 'Name of project',
-                alias: 'n'
-            })
-    }, (argv) => {
-        console.log(argv)
-    })
-    .command({
-        command: 'list',
-        aliases: ['ll', 'la', 'ls'],
-        description: 'List all packages',
-        builder: (yargs) => {
+program
+    .name(Object.keys(pkg.bin)[0])
+    .usage('<command> [options]')
+    .version(pkg.version)
+    .option('-d, --debug', '是否开启调试模式', false)
+    .option('-e, --envName <envName>', '获取环境变量名称')
 
-        },
-        handler: (argv) => {
-            console.log(argv)
-        }
+// command 注册命令
+const clone = program.command('clone <source> [destination]')
+clone
+    .description('clone a repo into newly created directory')
+    .option('-f --force', '是否强制克隆')
+    .action((source, destination, cmdObj) => {
+        console.log('do clone', source, destination, cmdObj.force)
     })
-    .parse(argv, context);
+
+// addCommand 注册子命令，对service进行分组
+const service = new commander.Command('service')
+service
+    .command('start [port]')
+    .description('start service at some port')
+    .action((port) => {
+        console.log('do service start', port)
+    })
+
+service
+    .command('stop [port]')
+    .description('stop service at some port')
+    .action((port) => {
+        console.log('do service stop', port)
+    })
+
+program.addCommand(service)
+
+program.parse(process.argv)
+
