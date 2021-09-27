@@ -43,5 +43,25 @@ service
 
 program.addCommand(service)
 
+program
+    .command('install [name]', 'install package', {
+        executableFile: 'vue-cli',
+        isDefault: true,
+        // 隐藏当前命令
+        // hidden: true
+    })
+    .alias('i')
+
+program
+    .arguments('<cmd> [options]')
+    .description('test command', {
+        cmd: 'command to run',
+        options: 'options for command'
+    })
+    .action((cmd, options) => {
+        console.log(cmd, options)
+    })
+
+
 program.parse(process.argv)
 
