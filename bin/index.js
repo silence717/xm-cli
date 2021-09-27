@@ -46,22 +46,47 @@ program.addCommand(service)
 program
     .command('install [name]', 'install package', {
         executableFile: 'vue-cli',
-        isDefault: true,
+        isDefault: false,
         // 隐藏当前命令
         // hidden: true
     })
     .alias('i')
 
-program
-    .arguments('<cmd> [options]')
-    .description('test command', {
-        cmd: 'command to run',
-        options: 'options for command'
-    })
-    .action((cmd, options) => {
-        console.log(cmd, options)
-    })
+// program
+//     .arguments('[cmd] [options]')
+//     .description('test command', {
+//         cmd: 'command to run',
+//         options: 'options for command'
+//     })
+//     .action((cmd, options) => {
+//         console.log(cmd, options)
+//     })
 
+
+// 高级定制1： 自定义help信息
+// 1、清空本身的帮助信息
+// program.helpInformation = () => {
+//     return ''
+// }
+// // 2、自定义
+// program.on('--help', () => {
+//     console.log('your help information')
+// })
+
+// 高级定制2： 自定义debug模式
+program.on('option:debug', () => {
+    if (program.debug) {
+        process.env.LOG_LEVEL = 'verbose'
+    }
+    console.log(process.env.LOG_LEVEL)
+})
+// 高级定制2：对未知命令监听
+program.on('command:*', (obj) => {
+    console.log(obj)
+    console.error('未知的命令：' + obj[0])
+    const availableCommands = program.commands.map(cmd => cmd.name())
+    console.log('可用命令：' + availableCommands.join(','))
+})
 
 program.parse(process.argv)
 
