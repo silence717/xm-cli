@@ -65,13 +65,13 @@ program
 
 // 高级定制1： 自定义help信息
 // 1、清空本身的帮助信息
-// program.helpInformation = () => {
-//     return ''
-// }
+program.helpInformation = () => {
+    return ''
+}
 // // 2、自定义
-// program.on('--help', () => {
-//     console.log('your help information')
-// })
+program.on('--help', () => {
+    console.log('your help information')
+})
 
 // 高级定制2： 自定义debug模式
 program.on('option:debug', () => {
@@ -80,7 +80,7 @@ program.on('option:debug', () => {
     }
     console.log(process.env.LOG_LEVEL)
 })
-// 高级定制2：对未知命令监听
+// 高级定制3：对未知命令监听
 program.on('command:*', (obj) => {
     console.log(obj)
     console.error('未知的命令：' + obj[0])
