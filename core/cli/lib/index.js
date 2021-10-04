@@ -8,25 +8,17 @@ const colors = require('colors/safe')
 const userHome = require('user-home')
 const pathExists = require('path-exists').sync
 
-const commander = require('commander')
+const { Command } = require('commander')
 const log = require('@how-xm/log')
 const init = require('@how-xm/init')
 const pkg = require('../package.json')
 const constant = require('./constant')
 
-let args
-
-const program = new commander.Command()
+const program = new Command()
 
 async function core() {
     try {
-        checkPkgVersion()
-        checkNodeVersion()
-        checkRoot()
-        checkUserHome()
-        // checkInputArgs()
-        checkEnv()
-        await checkGlobalUpdate()
+        await prepare()
         registerCommand()
     } catch (e) {
         log.error(e.message)
@@ -38,15 +30,17 @@ function registerCommand() {
         .name(Object.keys(pkg.bin)[0])
         .usage('<command> [options]')
         .version(pkg.version)
-        .option('-d --debug', '是否开启调试模式', false)
+        .option('-d, --debug', '是否开启调试模式', false)
+        .option('-tp, --targetPath <targetPath>', '是否指定本地调试文件路径', '')
 
     program
         .command('init [name]')
-        .option('-f --force', '是否强制初始化项目')
+        .option('-f, --force', '是否强制初始化项目')
         .action(init)
 
     // 开启debug模式
-    program.on('option:debug', function () {
+    program.on('option:debug', () => {
+        console.log('111')
         if (program.debug) {
             process.env.LOG_LEVEL = 'verbose';
         } else {
@@ -54,6 +48,11 @@ function registerCommand() {
         }
         log.level = process.env.LOG_LEVEL
         log.verbose('test')
+    })
+
+    // 指定全局 targetPath
+    program.on('option:targetPath', () => {
+        console.log(program.targetPath)
     })
 
     // 对未知命令的监听
@@ -65,12 +64,22 @@ function registerCommand() {
         }
     })
 
+    program.parse(process.argv)
+
     if (program.args && program.args.length < 1) {
         program.outputHelp()
         console.log()
     }
 
-    program.parse(process.argv)
+}
+
+async function prepare() {
+    checkPkgVersion()
+    checkNodeVersion()
+    checkRoot()
+    checkUserHome()
+    checkEnv()
+    await checkGlobalUpdate()
 }
 
 async function checkGlobalUpdate() {
@@ -106,21 +115,6 @@ function createDefaultConfig() {
         cliConfig['cliHome'] = path.join(userHome, constant.DEFAULT_CLI_HOME)
     }
     process.env.CLI_HOME_PATH = cliConfig.cliHome
-}
-
-function checkInputArgs() {
-    const minimist = require('minimist')
-    args = minimist(process.argv.slice(2))
-    checkArgs()
-}
-
-function checkArgs() {
-    if (args.debug) {
-        process.env.LOG_LEVEL = 'verbose'
-    } else {
-        process.env.LOG_LEVEL = 'info'
-    }
-    log.level = process.env.LOG_LEVEL
 }
 
 function checkUserHome() {
