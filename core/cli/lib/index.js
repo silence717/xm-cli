@@ -10,6 +10,7 @@ const pathExists = require('path-exists').sync
 
 const commander = require('commander')
 const log = require('@how-xm/log')
+const init = require('@how-xm/init')
 const pkg = require('../package.json')
 const constant = require('./constant')
 
@@ -39,6 +40,11 @@ function registerCommand() {
         .version(pkg.version)
         .option('-d --debug', '是否开启调试模式', false)
 
+    program
+        .command('init [name]')
+        .option('-f --force', '是否强制初始化项目')
+        .action(init)
+
     // 开启debug模式
     program.on('option:debug', function () {
         if (program.debug) {
@@ -63,7 +69,6 @@ function registerCommand() {
         program.outputHelp()
         console.log()
     }
-    console.log(program)
 
     program.parse(process.argv)
 }
