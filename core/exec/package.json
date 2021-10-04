@@ -27,6 +27,7 @@
     "url": "https://github.com/silence717/xm-cli/issues"
   },
   "dependencies": {
-    "@how-xm/package": "file:../../models/package"
+    "@how-xm/package": "file:../../models/package",
+    "@how-xm/log": "file:../../utils/log"
   }
 }

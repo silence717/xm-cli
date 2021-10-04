@@ -1,10 +1,6 @@
 {
   "name": "xm-cli",
   "version": "0.0.2",
-  "main": "core/cli/bin/index.js",
-  "bin": {
-    "xm-cli": "core/cli/bin/index.js"
-  },
   "repository": "https://github.com/silence717/xm-cli.git",
   "author": "fang.yang <yangfang2028@126.com>",
   "license": "MIT",

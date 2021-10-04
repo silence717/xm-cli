@@ -1,5 +1,5 @@
 {
-  "name": "@how-xm/package",
+  "name": "@how-xm/format-path",
   "version": "0.0.2",
   "description": "> TODO: description",
   "author": "fang.yang <yangfang2028@126.com>",
@@ -25,10 +25,5 @@
   },
   "bugs": {
     "url": "https://github.com/silence717/xm-cli/issues"
-  },
-  "dependencies": {
-    "@how-xm/utils": "file:../../utils/utils",
-    "@how-xm/format-path": "file:../../utils/format-path",
-    "pkg-dir": "4.2.0"
   }
 }

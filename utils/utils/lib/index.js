@@ -1,7 +1,9 @@
 'use strict';
 
-module.exports = index;
+function isObject(o) {
+    return Object.prototype.toString.call(o) === '[Object Object]'
+}
 
-function index() {
-    console.log('howxm utils')
+module.exports = {
+    isObject
 }
