@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@how-xm/get-npm-info": "file:../../utils/get-npm-info",
+    "@how-xm/exec": "file:../exec",
     "@how-xm/log": "file:../../utils/log",
     "@how-xm/init": "file:../../commands/init",
     "colors": "^1.4.0",

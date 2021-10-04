@@ -11,6 +11,7 @@ const pathExists = require('path-exists').sync
 const { Command } = require('commander')
 const log = require('@how-xm/log')
 const init = require('@how-xm/init')
+const exec = require('@how-xm/exec')
 const pkg = require('../package.json')
 const constant = require('./constant')
 
@@ -31,16 +32,16 @@ function registerCommand() {
         .usage('<command> [options]')
         .version(pkg.version)
         .option('-d, --debug', '是否开启调试模式', false)
+        .option('-s, --size', '是否开启调试模式', 'small')
         .option('-tp, --targetPath <targetPath>', '是否指定本地调试文件路径', '')
 
     program
         .command('init [name]')
         .option('-f, --force', '是否强制初始化项目')
-        .action(init)
+        .action(exec)
 
     // 开启debug模式
-    program.on('option:debug', () => {
-        console.log('111')
+    program.on('option:debug', function (params) {
         if (program.debug) {
             process.env.LOG_LEVEL = 'verbose';
         } else {
@@ -52,7 +53,7 @@ function registerCommand() {
 
     // 指定全局 targetPath
     program.on('option:targetPath', () => {
-        console.log(program.targetPath)
+        process.env.CLI_TARGET_PATH = program.targetPath
     })
 
     // 对未知命令的监听
