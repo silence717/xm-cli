@@ -30,9 +30,10 @@
     "access": "public"
   },
   "dependencies": {
-    "@how-xm/log": "file:../../utils/log",
     "@how-xm/get-npm-info": "file:../../utils/get-npm-info",
+    "@how-xm/log": "file:../../utils/log",
     "colors": "^1.4.0",
+    "commander": "^8.2.0",
     "dotenv": "^10.0.0",
     "minimist": "^1.2.5",
     "path-exists": "4.0.0",
